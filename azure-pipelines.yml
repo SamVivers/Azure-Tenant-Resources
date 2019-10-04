@@ -15,16 +15,16 @@ steps:
 
 
 #Error with this need to fix the error message.
-- task: AzureMysqlDeployment@1
+- task: MysqlDeploymentOnMachineGroup@1
+  displayName: Execute Azure Sql DacpacTask
   inputs:
-    AuthenticationType: 'server'
-    ServerName: '$(SqlServer)'
-    DatabaseName: '$(database)'
-    SqlUsername: '$(username)'
-    SqlPassword: '$(secret)'
-    deployType: 'SqlTask'
-    SqlFile: '$(script)'
-    IpDetectionMethod: 'AutoDetect'
+    TaskNameSelector: InlineSqlTask
+    SqlInline: 
+      CREATE DATABASE IF NOT EXISTS example 
+      use example 
+    ServerName: $(SqlServer)
+    SqlUsername: $(username)
+    SqlPassword: $(secret)
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
