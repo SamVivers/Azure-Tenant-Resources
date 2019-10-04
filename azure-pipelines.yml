@@ -13,15 +13,6 @@ steps:
 - script: echo Hello, worldy world!
   displayName: 'Run a one-line script'
 
-- task: SqlAzureDacpacDeployment@1
-  inputs:
-    AuthenticationType: 'server'
-    ServerName: '$(SqlServer)'
-    DatabaseName: '$(database)'
-    SqlUsername: '$(username)'
-    SqlPassword: '$(password)'
-    deployType: 'SqlTask'
-    IpDetectionMethod: 'AutoDetect'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
