@@ -21,7 +21,6 @@ steps:
     SqlUsername: '$(username)'
     SqlPassword: '$(password)'
     deployType: 'SqlTask'
-    SqlFile: 'example'
     IpDetectionMethod: 'AutoDetect'
 
 - script: |
