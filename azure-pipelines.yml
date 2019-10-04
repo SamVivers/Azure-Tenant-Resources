@@ -13,18 +13,16 @@ steps:
 - script: echo Hello, worldy world!
   displayName: 'Run a one-line script'
 
-
-#Error with this need to fix the error message.
-- task: MysqlDeploymentOnMachineGroup@1
-  displayName: Execute Azure Sql DacpacTask
+- task: SqlAzureDacpacDeployment@1
   inputs:
-    TaskNameSelector: InlineSqlTask
-    SqlInline: 
-      CREATE DATABASE IF NOT EXISTS example 
-      use example 
-    ServerName: $(SqlServer)
-    SqlUsername: $(username)
-    SqlPassword: $(secret)
+    AuthenticationType: 'server'
+    ServerName: '$(SqlServer)'
+    DatabaseName: '$(database)'
+    SqlUsername: '$(username)'
+    SqlPassword: '$(password)'
+    deployType: 'SqlTask'
+    SqlFile: 'example'
+    IpDetectionMethod: 'AutoDetect'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
