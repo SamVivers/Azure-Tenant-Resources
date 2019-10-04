@@ -13,8 +13,11 @@ steps:
 - script: echo Hello, worldy world!
   displayName: 'Run a one-line script'
 
-- task: SqlAzureDacpacDeployment@1
+
+#Error with this need to fix the error message.
+- task: AzureMysqlDeployment@1
   inputs:
+    azureSubscription: 
     AuthenticationType: 'server'
     ServerName: '$(SqlServer)'
     DatabaseName: '$(database)'
