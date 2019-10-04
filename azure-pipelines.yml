@@ -13,13 +13,13 @@ steps:
 - script: echo Hello, worldy world!
   displayName: 'Run a one-line script'
 
-- task: SqlAzureDacpacDeployment@1
+- task: SqlAzureDeployment@1
   inputs:
     AuthenticationType: 'server'
     ServerName: '$(SqlServer)'
     DatabaseName: '$(database)'
     SqlUsername: '$(username)'
-    SqlPassword: '${secret)'
+    SqlPassword: '$(secret)'
     deployType: 'SqlTask'
     SqlFile: '$(script)'
     IpDetectionMethod: 'AutoDetect'
