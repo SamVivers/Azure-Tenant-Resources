@@ -1,12 +1,22 @@
 #!/bin/bash
 
-# list resource groups
-ResourceGroupList=`az group list --query [].name --output json`
-
-# cut result into individual resource group names and remove extra characters, then place these into an array
-declare -a ResourceGroupArray
+k=0
 s=5
 j=0
+
+export AZURESTACK_RESOURCE_GROUP=testresourcegrouprg
+export AZURESTACK_RG_LOCATION=westeurope
+export AZURESTACK_STORAGE_ACCOUNT_NAME=vsstoragenametest
+export AZURESTACK_STORAGE_CONTAINER_NAME=vsstoragecontainernametest
+export AZURESTACK_STORAGE_BLOB_NAME=vsblobnametest
+export FILES_TO_UPLOAD=
+export DESTINATION_FILES=destinationfilestest
+
+# list resource groups
+ResourceGroupList=`az group list --query [].name --output json`
+# cut result into individual resource group names and remove extra characters, then place these into an array
+declare -a ResourceGroupArray
+
 for (( i=0; i<${#ResourceGroupList}; i++ )); do
 	if [ "${ResourceGroupList:i:1}" == "," ]; then
 		ResourceGroupArray[$j]="${ResourceGroupList:s:i-(s+1)}"
@@ -17,13 +27,28 @@ for (( i=0; i<${#ResourceGroupList}; i++ )); do
 		ResourceGroupArray[$j]="${ResourceGroupList:s:i-(s+2)}"
 	fi
 done
-#	echo ${ResourceGroupArray[@]}
+# echo ${ResourceGroupArray[@]}
 
 # export the ARM Template for each resource group
 for k in ${ResourceGroupArray[@]}; do	
+#	az group export -n "$k" -o table > "$k".txt
 	az group export -n "$k" > "$k".json
 	echo "$k.json created"
-# simple overview of resources
-#       az group export -n "$k" -o table > "$k".txt
-# 	echo "$k.txt created"
 done 
+
+echo "Creating resource group"
+az group create --name $AZURESTACK_RESOURCE_GROUP --location $AZURESTACK_RG_LOCATION
+
+echo "Creating the storage account"
+az storage account create --name $AZURESTACK_STORAGE_ACCOUNT_NAME --resource-group $AZURESTACK_RESOURCE_GROUP 
+
+echo "Creating the blob container"
+az storage container create --name $AZURESTACK_STORAGE_CONTAINER_NAME --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME
+
+echo "Uploading the files"
+for l in ${ResourceGroupArray[@]}; do 
+	az storage blob upload --container-name $AZURESTACK_STORAGE_CONTAINER_NAME --file $l.json --name $AZURESTACK_STORAGE_BLOB_NAME --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME
+done
+
+echo "Listing the blobs"
+az storage blob list --container-name $AZURESTACK_STORAGE_CONTAINER_NAME --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME --output table
