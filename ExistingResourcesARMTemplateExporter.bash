@@ -4,13 +4,13 @@ k=0
 s=5
 j=0
 
-export AZURESTACK_RESOURCE_GROUP=testresourcegrouprg
-export AZURESTACK_RG_LOCATION=westeurope
-export AZURESTACK_STORAGE_ACCOUNT_NAME=vsstoragenametest
-export AZURESTACK_STORAGE_CONTAINER_NAME=vsstoragecontainernametest
-export AZURESTACK_STORAGE_BLOB_NAME=vsblobnametest
+export AZURESTACK_RESOURCE_GROUP=<resourcegroupname> 
+export AZURESTACK_RG_LOCATION=<location>
+export AZURESTACK_STORAGE_ACCOUNT_NAME=<uniquestorageaccountname>
+export AZURESTACK_STORAGE_CONTAINER_NAME=<uniquestoragecontainername>
+export AZURESTACK_STORAGE_BLOB_NAME=<uniqueblobname>
 export FILES_TO_UPLOAD=
-export DESTINATION_FILES=destinationfilestest
+export DESTINATION_FILES=<destinationfilestest>
 
 # list resource groups
 ResourceGroupList=`az group list --query [].name --output json`
