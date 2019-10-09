@@ -47,8 +47,12 @@ az storage container create --name $AZURESTACK_STORAGE_CONTAINER_NAME --account-
 
 echo "Uploading the files"
 for l in ${ResourceGroupArray[@]}; do 
-	az storage blob upload --container-name $AZURESTACK_STORAGE_CONTAINER_NAME --file $l.json --name $AZURESTACK_STORAGE_BLOB_NAME --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME
+	echo "$l".json
+		 az storage blob upload --container-name $AZURESTACK_STORAGE_CONTAINER_NAME --file "$l".json --name $l --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME
+
 done
 
 echo "Listing the blobs"
 az storage blob list --container-name $AZURESTACK_STORAGE_CONTAINER_NAME --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME --output table
+
+
