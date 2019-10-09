@@ -1,22 +1,11 @@
 #!/bin/bash
 
-k=0
-s=5
-j=0
-
-export AZURESTACK_RESOURCE_GROUP=<resourcegroupname> 
-export AZURESTACK_RG_LOCATION=<location>
-export AZURESTACK_STORAGE_ACCOUNT_NAME=<uniquestorageaccountname>
-export AZURESTACK_STORAGE_CONTAINER_NAME=<uniquestoragecontainername>
-export AZURESTACK_STORAGE_BLOB_NAME=<uniqueblobname>
-export FILES_TO_UPLOAD=
-export DESTINATION_FILES=<destinationfilestest>
-
 # list resource groups
 ResourceGroupList=`az group list --query [].name --output json`
 # cut result into individual resource group names and remove extra characters, then place these into an array
 declare -a ResourceGroupArray
-
+j=0
+s=5
 for (( i=0; i<${#ResourceGroupList}; i++ )); do
 	if [ "${ResourceGroupList:i:1}" == "," ]; then
 		ResourceGroupArray[$j]="${ResourceGroupList:s:i-(s+1)}"
@@ -36,19 +25,10 @@ for k in ${ResourceGroupArray[@]}; do
 	echo "$k.json created"
 done 
 
-echo "Creating resource group"
-az group create --name $AZURESTACK_RESOURCE_GROUP --location $AZURESTACK_RG_LOCATION
-
-echo "Creating the storage account"
-az storage account create --name $AZURESTACK_STORAGE_ACCOUNT_NAME --resource-group $AZURESTACK_RESOURCE_GROUP 
-
-echo "Creating the blob container"
-az storage container create --name $AZURESTACK_STORAGE_CONTAINER_NAME --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME
-
 echo "Uploading the files"
 for l in ${ResourceGroupArray[@]}; do 
-	az storage blob upload --container-name $AZURESTACK_STORAGE_CONTAINER_NAME --file $l.json --name $AZURESTACK_STORAGE_BLOB_NAME --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME
+	az storage blob upload --container-name $AZURE_STORAGE_CONTAINER --file "$l.json" --name "$l ARMTemplate" --account-name $AZURE_STORAGE_ACCOUNT
 done
 
 echo "Listing the blobs"
-az storage blob list --container-name $AZURESTACK_STORAGE_CONTAINER_NAME --account-name $AZURESTACK_STORAGE_ACCOUNT_NAME --output table
+az storage blob list --container-name $AZURE_STORAGE_CONTAINER --account-name $AZURE_STORAGE_ACCOUNT --o table
