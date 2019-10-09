@@ -25,10 +25,12 @@ for k in ${ResourceGroupArray[@]}; do
 	echo "$k.json created"
 done 
 
+az storage container create --name $UserName --account-name $AZURE_STORAGE_ACCOUNT
+
 echo "Uploading the files"
 now=`date`
 for l in ${ResourceGroupArray[@]}; do 
-	az storage blob upload --container-name $AZURE_STORAGE_CONTAINER --file "$l.json" --name "$l ARMTemplate $now" --account-name $AZURE_STORAGE_ACCOUNT
+	az storage blob upload --container-name $UserName --file "$l.json" --name "$l ARMTemplate $now" --account-name $AZURE_STORAGE_ACCOUNT
 done
 
 # echo "Listing the blobs"
@@ -38,4 +40,3 @@ done
 for m in ${ResourceGroupArray[@]}; do
 	rm "$m.json"
 done
-n
