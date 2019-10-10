@@ -30,8 +30,8 @@ for k in ${ResourceGroupArray[@]}; do
 done 
 
 # cut the email address of the Azure Subscription to just the company name, then check if a container already exists, if not create storage container with this name and unique subscription id
-# export AZURE_STORAGE_ACCOUNT=
-# export AZURE_STORAGE_KEY=
+export AZURE_STORAGE_ACCOUNT="storageaccountytest"
+export AZURE_STORAGE_KEY=`az keyvault secret show -n StorageAccountKey --vault-name keyvaultdatatest --query value -o tsv`
 SubscriptionName=`az account list --query [].user.name -o tsv`
 # echo $AccountName
 for (( i=0; i<${#SubscriptionName}; i++ )); do
