@@ -42,6 +42,7 @@ done
 for (( i=0; i<${#EmailName}; i++ )); do
         if [ "${EmailName:i:3}" == ".co" ]; then
                 UserName="${EmailName:0:i}"
+		break
         fi
 done
 # echo $UserName
