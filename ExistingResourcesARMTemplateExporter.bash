@@ -27,7 +27,7 @@ for k in ${ResourceGroupArray[@]}; do
 	echo "$k.json created"
 done 
 
-# cut the email address of the Azure Subscription to just the company name, then create storage container with this name 
+# cut the email address of the Azure Subscription to just the company name, then create storage container with this name and unique subscription id
 # export AZURE_STORAGE_ACCOUNT=
 # export AZURE_STORAGE_KEY=
 SubscriptionName=`az account list --query [].user.name -o tsv`
@@ -44,7 +44,7 @@ for (( i=0; i<${#EmailName}; i++ )); do
 done
 # echo $UserName
 UserId=`az account list --query [].id -o tsv`
-ContainerName="$UserId ($UserName)"
+ContainerName="$UserName-$UserId"
 az storage container create --name $ContainerName --account-name $AZURE_STORAGE_ACCOUNT
 
 # upload files to created container (with current date appended to the name) 
