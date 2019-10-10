@@ -21,10 +21,12 @@ done
 
 # export the ARM Template for each resource group
 for k in ${ResourceGroupArray[@]}; do	
+#	echo "creating $k.txt"
 #	az group export -n "$k" -o table > "$k".txt
 #	echo "$k.txt created"
+	echo "creating $k.json"
 	az group export -n "$k" > "$k".json
-	echo "$k.json created"
+	echo -e "$k.json created\n"
 done 
 
 # cut the email address of the Azure Subscription to just the company name, then check if a container already exists, if not create storage container with this name and unique subscription id
@@ -46,13 +48,17 @@ done
 UserId=`az account list --query [].id -o tsv`
 ContainerName="$UserName-$UserId"
 if [ `az storage container exists --account-name $AZURE_STORAGE_ACCOUNT --name $ContainerName -o tsv` == "False" ]; then
-	az storage container create --name $ContainerName --account-name $AZURE_STORAGE_ACCOUNT
+	echo "creating storage container $ContainerName"
+	az storage container create --name $ContainerName --account-name $AZURE_STORAGE_ACCOUNT -o tsv
+	echo -e "$ContainerName created\n"
 fi
 
 # upload files to created container (with current date appended to the name) 
 now=`date`
 for l in ${ResourceGroupArray[@]}; do 
+	echo "uploading $l.json"
 	az storage blob upload --container-name $ContainerName --file "$l.json" --name "$l ARMTemplate $now" --account-name $AZURE_STORAGE_ACCOUNT
+	echo -e "$l.json uploaded\n"
 done
 # az storage blob list --container-name $ContainerName --account-name $AZURE_STORAGE_ACCOUNT --o table
 
