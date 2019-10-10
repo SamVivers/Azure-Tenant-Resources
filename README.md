@@ -16,4 +16,4 @@ using stoarage account key is for testing only will need to tighten up before de
 ```
 /bin/bash ./ExistingResourcesARMTemplateExporter.bash
 ```
-Each resource groups ARM Template (ResourceGroup".json) will now reside in the central storage account.
+Each resource groups ARM Template ("ResourceGroup".json) will now reside in the central storage account.
