@@ -11,13 +11,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, worldy world!
 - task: CmdLine@2
   inputs:
-    script: '/bin/bash ./ExistingResourcesARMTemplateExporter.bash'
+    - script: '/bin/bash ./ExistingResourcesARMTemplateExporter.bash'
+      displayName: 'run the script'
 
-  displayName: 'Run a one-line script'
 
+steps: 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
