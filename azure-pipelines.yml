@@ -10,13 +10,13 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
 - task: CmdLine@2
   inputs:
-    - script: '/bin/bash ./ExistingResourcesARMTemplateExporter.bash'
-      displayName: 'run the script'
-
-
+    script: |
+      echo Write your commands here
+      
+      echo Hello world
+      
 steps: 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
