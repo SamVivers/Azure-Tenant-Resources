@@ -14,11 +14,11 @@ steps:
 - script: echo Hello, worldy world!
   displayName: 'Run a one-line script'
 
-- task: CmdLine@2
-  inputs:
-    script: '/bin/bash ./ExistingResourcesARMTemplateExporter.bash'
-
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: CmdLine@2
+  inputs:
+    script: '/bin/bash ./ExistingResourcesARMTemplateExporter.bash'
