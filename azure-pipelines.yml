@@ -12,10 +12,16 @@ pool:
 
 steps:
 - script: echo Hello, worldy world!
-  displayName: 'Run a one-line script'
-- task: BatchScript@1
+  displayName: 'Run a one-line script'steps:
+- task: AzureCLI@2
   inputs:
-    filename: './ExistingResourcesARMTemplateExporter.bash'
+    azureSubscription: 'Visual Studio Enterprise – MPN(16c8a7ad-2e95-4357-ae1e-8d353441ece0)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      git clone https://github.com/SamVivers/Azure-Tenant-Resources.git
+      /bin/bash ./ExistingResourcesARMTemplateExporter.bash'
+      displayName: 'run the script'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
