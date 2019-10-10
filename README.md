@@ -6,4 +6,4 @@ Clone this repo to desired subscriptions Azure CLI
 ```
 /bin/bash ./ExistingResourcesARMTemplateExporter.bash
 ```
-Each resource groups ARM Template (ResourceGroup".json) will now reside in the central storage account.
+Each resource groups ARM Template ("ResourceGroup".json) will now reside in the central storage account.
