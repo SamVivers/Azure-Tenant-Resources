@@ -10,13 +10,14 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+steps: 
 - task: CmdLine@2
   inputs:
     script: |
       echo Write your commands here
       
       echo Hello world
-      
+
 steps: 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
