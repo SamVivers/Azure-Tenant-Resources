@@ -10,4 +10,6 @@ for (( i=0; i<${#EmailName}; i++ )); do
                 UserName="${EmailName:0:i}"
         fi
 done
-echo $UserName
+UserId=`az account list --query [].id -o tsv`
+ContainerName="$UserId ($UserName)"
+echo $ContainerName

@@ -43,14 +43,16 @@ for (( i=0; i<${#EmailName}; i++ )); do
         fi
 done
 # echo $UserName
-az storage container create --name $UserName --account-name $AZURE_STORAGE_ACCOUNT
+UserId=`az account list --query [].id -o tsv`
+ContainerName="$UserId ($UserName)"
+az storage container create --name $ContainerName --account-name $AZURE_STORAGE_ACCOUNT
 
 # upload files to created container (with current date appended to the name) 
 now=`date`
 for l in ${ResourceGroupArray[@]}; do 
-	az storage blob upload --container-name $UserName --file "$l.json" --name "$l ARMTemplate $now" --account-name $AZURE_STORAGE_ACCOUNT
+	az storage blob upload --container-name $ContainerName --file "$l.json" --name "$l ARMTemplate $now" --account-name $AZURE_STORAGE_ACCOUNT
 done
-# az storage blob list --container-name $UserName --account-name $AZURE_STORAGE_ACCOUNT --o table
+# az storage blob list --container-name $ContainerName --account-name $AZURE_STORAGE_ACCOUNT --o table
 
 # clean up
 for m in ${ResourceGroupArray[@]}; do
