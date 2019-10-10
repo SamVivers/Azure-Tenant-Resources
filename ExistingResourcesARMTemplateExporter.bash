@@ -33,7 +33,7 @@ done
 export AZURE_STORAGE_ACCOUNT="storageaccountytest"
 export AZURE_STORAGE_KEY=`az keyvault secret show -n StorageAccountKey --vault-name keyvaultdatatest --query value -o tsv`
 SubscriptionName=`az account list --query [].user.name -o tsv`
-# echo $AccountName
+# echo $SubscriptionName
 for (( i=0; i<${#SubscriptionName}; i++ )); do
         if [ "${SubscriptionName:i:1}" == "@" ]; then
                 EmailName="${SubscriptionName:i+1:${#SubscriptionName}}"
