@@ -54,10 +54,10 @@ if [ `az storage container exists --account-name $AZURE_STORAGE_ACCOUNT --name $
 fi
 
 # upload files to created container (with current date appended to the name) 
-now=`date`
+now=`date +%Y/%m/%d`
 for l in ${ResourceGroupArray[@]}; do 
 	echo "uploading $l.json"
-	az storage blob upload --container-name $ContainerName --file "$l.json" --name "$l ARMTemplate $now" --account-name $AZURE_STORAGE_ACCOUNT
+	az storage blob upload --container-name $ContainerName --file "$l.json" --name "$now_$l_ARMTemplate " --account-name $AZURE_STORAGE_ACCOUNT
 	echo -e "$l.json uploaded\n"
 done
 # az storage blob list --container-name $ContainerName --account-name $AZURE_STORAGE_ACCOUNT --o table
