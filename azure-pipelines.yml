@@ -12,7 +12,7 @@ pool:
 
 steps:
 - script: echo Hello, worldy world!
-  displayName: 'Run a one-line script'steps:
+  displayName: 'Run a one-line script'
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Visual Studio Enterprise – MPN(16c8a7ad-2e95-4357-ae1e-8d353441ece0)'
