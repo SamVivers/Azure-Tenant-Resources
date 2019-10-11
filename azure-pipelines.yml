@@ -12,13 +12,8 @@
 #   resources: ExistingResourcesARMTemplateExporter
 
 # steps: 
-#   - task: Bash@3
-#     inputs: 
-#       targetType: 'inline'
-  
-  steps: 
 
-    - task: CmdLine@2
+- task: CmdLine@2
   inputs:
     script: |
       echo Write your commands here
