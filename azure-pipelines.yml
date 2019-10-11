@@ -1,5 +1,6 @@
 # Starter pipeline
 
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -16,13 +17,11 @@
 #       targetType: 'inline'
   
   steps: 
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: 'Connect-AzAccount'
 
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script:  './ExistingResourcesARMTemplateExporter.bash'
+    - task: CmdLine@2
+  inputs:
+    script: |
+      echo Write your commands here
+      
+      /bin/bash ./ExistingResourcesARMTemplateExporter.bash
 
