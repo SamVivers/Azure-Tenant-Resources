@@ -5,18 +5,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-# trigger:
-# - azure-pipelines-test
-
-# pool: 
-#   resources: ExistingResourcesARMTemplateExporter
-
-# steps: 
-
+steps:
 - task: CmdLine@2
   inputs:
-    script: |
-      echo Write your commands here
-      
-      /bin/bash ./ExistingResourcesARMTemplateExporter.bash
-
+    script: '/bin/bash ./ExistingResourcesARMTemplateExporter.bash'
