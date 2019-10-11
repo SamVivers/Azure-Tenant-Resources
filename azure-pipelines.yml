@@ -16,8 +16,8 @@
 #       targetType: 'inline'
   
   steps: 
-    
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: './ExistingResourcesARMTemplateExporter.bash'
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: 'Connect-AzAccount
+          ./ExistingResourcesARMTemplateExporter.bash'
