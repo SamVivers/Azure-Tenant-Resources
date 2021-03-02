@@ -5,7 +5,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- new-database
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -15,6 +15,7 @@ steps:
   inputs:
     - script: '/bin/bash ./ExistingResourcesARMTemplateExporter.bash'
       displayName: 'run the script'
+
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
